@@ -5,15 +5,15 @@ import {ApiConnect} from "@/services/ApiConnection";
 import {useState} from "react";
 import {saveUserLoginSession} from "@/storage/AuthSTorage";
 import {AxiosResponse} from "axios";
-import {userAuthType} from "@/types/auth/userAuthType";
-import {useRouter} from "next/router";
+import {userTokenType} from "@/types/auth/userTokenType";
+import {useRouter} from "next/navigation";
 
 export default function LoginForm() {
     const [userName, setUserName] = useState("");
     const [password, setPassword] = useState("");
     const [remember, setRemember] = useState(false);
 
-    const navigation = useRouter();
+    const router = useRouter(); // Uso correto do useRouter
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -52,7 +52,7 @@ export default function LoginForm() {
         password: string;
     }) => {
         try {
-            const loginResponse:AxiosResponse<userAuthType> = await ApiConnect(window.location.href).post("/login",
+            const loginResponse:AxiosResponse<userTokenType> = await ApiConnect(window.location.href).post("/login",
                 {
                     username: formData.username,
                     password: formData.password,
@@ -66,6 +66,7 @@ export default function LoginForm() {
                 type: "success",
                 message: "Login realizado com sucesso",
             });
+            router.push("/chat"); // Navegação corrigida
             // saveUserLoginSession()
         } catch (error) {
             showToast({

@@ -7,14 +7,4 @@ export type userAuthType ={
     lastName: string,
     urlImage: string,
     dropboxImg: string,
-
-}
-
-export type userJwtType ={
-    firstName: string,
-    lastName: string,
-    urlImage: string,
-    dropboxImg: string,
-    roles: string[]
-
 }

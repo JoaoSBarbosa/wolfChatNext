@@ -7,6 +7,7 @@ import {saveUserLoginSession} from "@/storage/AuthSTorage";
 import {AxiosResponse} from "axios";
 import {userTokenType} from "@/types/auth/userTokenType";
 import {useRouter} from "next/navigation";
+import {useAuth} from "@/hooks/useAuth";
 
 export default function LoginForm() {
     const [userName, setUserName] = useState("");
@@ -15,6 +16,7 @@ export default function LoginForm() {
 
     const router = useRouter(); // Uso correto do useRouter
 
+    const { login } = useAuth();
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
 
@@ -61,13 +63,18 @@ export default function LoginForm() {
             console.log("Resposta da API: ", loginResponse.data);
 
 
-            saveUserLoginSession({token: loginResponse?.data?.token, refreshToken: loginResponse?.data?.refreshToken})
-            showToast({
-                type: "success",
-                message: "Login realizado com sucesso",
-            });
-            router.push("/chat"); // Navegação corrigida
-            // saveUserLoginSession()
+            login({
+                token: loginResponse?.data?.token,
+                refreshToken: loginResponse?.data?.refreshToken
+            })
+            // saveUserLoginSession({token: loginResponse?.data?.token, refreshToken: loginResponse?.data?.refreshToken})
+            // showToast({
+            //     type: "success",
+            //     message: "Login realizado com sucesso",
+            // });
+            // router.push("/chat");
+
+
         } catch (error) {
             showToast({
                 type: "error",

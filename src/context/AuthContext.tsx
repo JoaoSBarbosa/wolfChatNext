@@ -1,3 +1,4 @@
+"use client"
 import {createContext, ReactNode, useEffect, useState} from "react";
 import {UserJwtType} from "@/types/auth/UserJwtType";
 import {useRouter} from "next/navigation";

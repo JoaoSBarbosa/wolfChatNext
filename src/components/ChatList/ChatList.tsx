@@ -24,9 +24,9 @@ export const ChatList = () =>{
         }
     ]
     return(
-        <div className={"h-full bg-gray-300 w-[500px]"}>
+        <div className={"h-full flex flex-col gap-4 bg-gray-800 text-white p-1 w-[500px]"}>
             { chatList?.map((chat)=>(
-                <ChatListItem alt={chat?.alt} src={chat?.photo} lastMessage={chat.lastMessage} title={ chat.title} countMessage={chat.quantityMessage}/>
+                <ChatListItem key={chat?.id} alt={chat?.alt} src={chat?.photo} lastMessage={chat.lastMessage} title={ chat.title} countMessage={chat.quantityMessage}/>
             ))}
 
         </div>

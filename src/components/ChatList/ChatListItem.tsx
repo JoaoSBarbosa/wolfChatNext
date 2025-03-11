@@ -1,10 +1,12 @@
+import {UserChatType} from "@/types/user/UserChatType";
+
 interface IChatListItem {
     src: string,
     alt: string,
     title: string
     lastMessage: string;
     countMessage: number;
-    onSelected: ()=> void
+    onSelected: (row: UserChatType)=> void
 }
 
 export const ChatListItem = ({alt, src, lastMessage, countMessage = 10, title, onSelected}: IChatListItem) => {

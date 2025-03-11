@@ -46,6 +46,25 @@ export const getUserLoginSession = () => {
 
     return userSession;
 }
+export const getTokenSession = () => {
+    let tokensSession: userTokenType | null = null;
+
+    try {
+        if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
+            tokensSession = JSON.parse(localStorage.getItem(token_user) as string) as userTokenType;
+        }
+    } catch (error) {
+        showToast({
+            message: `Ops! Não foi possível salvar a sessão do usuário no sistema, consulte o suporte. Erro: ${error}`,
+            theme: "dark",
+            type: "error",
+            position: ToastPosition.TOP_LEFT,
+            autoClose: 5000
+        })
+    }
+
+    return tokensSession;
+}
 
 export const logoutUser = () =>{
     try {

@@ -32,8 +32,10 @@ export const AuthContextProvider = ({children}: IAuthContextProvider) => {
 
     const login = ( userData: userTokenType) =>{
         saveTokenSession(userData);
+        console.log("DADOS A SEREM SALVOS EM STORAGE: ", userData)
         const userSession = getUserLoginSession();
-        if(userSession) setUser(userSession);
+        if( userSession ) setUser(userSession);
+        console.log("DADOS A SEREM SALVOS EM CONTEXT: ", userSession)
 
         showToast({
             message: `Bem-vindo, ${userSession?.firstName}!`,

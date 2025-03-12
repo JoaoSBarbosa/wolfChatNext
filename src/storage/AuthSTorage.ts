@@ -31,8 +31,30 @@ export const getUserLoginSession = () => {
 
     try {
         if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
-            const tokens = JSON.parse(localStorage.getItem(token_user) as string) as userTokenType;
-            userSession = jwtDecode(tokens.token);
+            const teste = JSON.parse(localStorage.getItem(token_user) as string) as userTokenType;
+
+            console.log("TESTE: ", teste.token)
+
+            // userSession = jwtDecode(tokens.token);
+            // userSession = userSession?.token = tokens.token;
+            // userSession = userSession?.refreshToken = tokens.refreshToken;
+            const tokens = localStorage.getItem(token_user);
+
+            if(tokens){
+                const parsedTokens = JSON.parse(tokens) as userTokenType;
+                const decodedToken = jwtDecode(parsedTokens.token) as UserJwtType;
+
+                userSession = {
+                    firstName: decodedToken.firstName,
+                    lastName: decodedToken.lastName,
+                    urlImage: decodedToken.urlImage,
+                    dropboxImg: decodedToken.dropboxImg,
+                    roles: decodedToken.roles,
+                    token: parsedTokens.token,
+                    refreshToken: parsedTokens.refreshToken
+                }
+            }
+
         }
     } catch (error) {
         showToast({
@@ -43,9 +65,9 @@ export const getUserLoginSession = () => {
             autoClose: 5000
         })
     }
-
     return userSession;
 }
+
 export const getTokenSession = () => {
     let tokensSession: userTokenType | null = null;
 

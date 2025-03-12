@@ -6,32 +6,37 @@ import {showToast} from "@/components/ToastMensage/ToastMessage";
 import {UserChatType} from "@/types/user/UserChatType";
 import {AxiosResponse} from "axios";
 import {getTokenSession} from "@/storage/AuthSTorage";
+import {useAuth} from "@/hooks/useAuth";
+import {UserJwtType} from "@/types/auth/UserJwtType";
 
 export const ChatList = () => {
 
+    const { user } = useAuth();
     const [ selectedChat, setSelectedChat ] = useState<UserChatType | null>(null)
     const [ users, setUsers ] = useState<UserChatType[]>([]);
     useEffect(() => {
-        getAllUser().then(setUsers);
-    }, []);
+        if(user && user.token){
+            getAllUser(user.token).then(setUsers);
+        }
+    }, [user]);
 
 
-    async function getAllUser() {
+    async function getAllUser(token: string) {
 
         let responseData = [] as UserChatType[];
         try {
-            const tokenSession = getTokenSession();
-            const accessToken = tokenSession?.token;
-            if (!accessToken) {
+            if (!token) {
                 showToast({
                     type: "error",
                     message: "Usuário não autenticado! Token não encontrado."
                 });
                 return responseData;
             }
+            console.log("Token enviado:", token);
+
             let responseAxios:AxiosResponse<UserChatType[]> = await ApiConnect(window.location.href).get("/barbosa_chat/users/chat/init",{
                 headers:{
-                    Authorization: `Bearer ${accessToken}`
+                    Authorization: `Bearer ${token}`
                 }
             });
             console.log("DADOS: ", responseAxios.data)

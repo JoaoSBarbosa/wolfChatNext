@@ -4,4 +4,6 @@ export type UserJwtType = {
     urlImage: string,
     dropboxImg: string,
     roles: string[]
+    token: string;
+    refreshToken: string;
 }

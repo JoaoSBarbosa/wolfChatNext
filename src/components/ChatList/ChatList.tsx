@@ -19,9 +19,24 @@ export const ChatList = () => {
             getAllUser(user.token).then(setUsers);
         }
     }, [user]);
+    // useEffect(() => {
+    //     if(user && user.token){
+    //         fetch("http://localhost:8080/barbosa_chat/users/chat/init", {
+    //             method: "GET",
+    //             headers: {
+    //                 "Authorization": `Bearer ${user.token}`,
+    //                 "Content-Type": "application/json"
+    //             }
+    //         })
+    //             .then(res => res.json())
+    //             .then(data => console.log("USERS:", data))
+    //             .catch(err => console.error("Erro no fetch:", err));
+    //     }
+    // }, [user]);
 
 
     async function getAllUser(token: string) {
+        console.log("Token enviado para API:", token);
 
         let responseData = [] as UserChatType[];
         try {
@@ -34,9 +49,10 @@ export const ChatList = () => {
             }
             console.log("Token enviado:", token);
 
-            let responseAxios:AxiosResponse<UserChatType[]> = await ApiConnect(window.location.href).get("/barbosa_chat/users/chat/init",{
-                headers:{
-                    Authorization: `Bearer ${token}`
+            let responseAxios:AxiosResponse<UserChatType[]> = await ApiConnect(window.location.href).get("/users/chat/init",{
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                    "Content-Type": "application/json" // garantir isso é opcional
                 }
             });
             console.log("DADOS: ", responseAxios.data)

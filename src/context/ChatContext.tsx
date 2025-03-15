@@ -5,14 +5,22 @@ import {useRouter} from "next/navigation";
 import {getUserLoginSession, logoutUser, saveTokenSession} from "@/storage/AuthSTorage";
 import {userTokenType} from "@/types/auth/userTokenType";
 import {showToast, ToastPosition} from "@/components/ToastMensage/ToastMessage";
+import {ChatRequestType} from "@/types/chat/ChatRequestType";
+import {UserChatType} from "@/types/user/UserChatType";
 
-export type AuthContextProps = {
+export type ChatContextProps = {
     user: UserJwtType | null;
     isAuthentication: boolean;
     login: (userData: userTokenType) => void;
-    logout: () => void
+    logout: () => void;
+
+    selectedChat: ChatRequestType | null;
+    setSelectedChat: (chat: ChatRequestType | null) => void;
+
+    selectedUser: UserChatType | null;
+    setSelectedUser: (user: UserChatType | null) => void;
 }
-export const AuthContext = createContext<AuthContextProps | null>(null);
+export const ChatContext = createContext<ChatContextProps | null>(null);
 
 interface IAuthContextProvider {
     children: ReactNode
@@ -21,6 +29,8 @@ interface IAuthContextProvider {
 export const AuthContextProvider = ({children}: IAuthContextProvider) => {
 
     const [ user, setUser ] = useState<UserJwtType | null>(null);
+    const [ selectedUser, setSelectedUser ] = useState<UserChatType | null>(null)
+    const [ selectedChat, setSelectedChat ] = useState<ChatRequestType | null>(null)
     const router = useRouter();
 
 
@@ -55,8 +65,14 @@ export const AuthContextProvider = ({children}: IAuthContextProvider) => {
     }
 
     return (
-        <AuthContext.Provider value={{user, isAuthentication: !!user, logout, login}}>
+        <ChatContext.Provider value={{
+            user,
+            isAuthentication: !!user,
+            logout, login,
+            selectedChat, setSelectedChat,
+            selectedUser, setSelectedUser
+        }}>
             {children}
-        </AuthContext.Provider>
+        </ChatContext.Provider>
     )
 }

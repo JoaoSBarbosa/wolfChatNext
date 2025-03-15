@@ -1,8 +1,8 @@
 import {useContext} from "react";
-import {AuthContext} from "@/context/AuthContext";
+import {ChatContext} from "@/context/ChatContext";
 
 export const useAuth = () => {
-    const context = useContext(AuthContext);
+    const context = useContext(ChatContext);
 
     if (!context) {
         throw new Error("useAuth precisa estar dentro de AuthProvider");

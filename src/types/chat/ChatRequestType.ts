@@ -1,3 +1,5 @@
+import {UserChatType} from "@/types/user/UserChatType";
+
 export type ChatRequestType = {
     chatId: number;
     isGroup: boolean;
@@ -5,6 +7,6 @@ export type ChatRequestType = {
     description: string;
     createdAt: string;
     createdBy: number;
-    chatUsers: ChatRequestType[]
+    chatUsers: UserChatType[]
 
 }

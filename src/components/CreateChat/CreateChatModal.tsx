@@ -13,7 +13,7 @@ type CreateChatModalProps = {
 };
 
 export const CreateChatModal = ({open, onClose}: CreateChatModalProps) => {
-    const {user} = useAuth();
+    const {user, setSelectedUser, setSelectedChat} = useAuth();
     const [users, setUsers] = useState<UserChatType[]>([])
     const [loading, setLoading] = useState(false);
 
@@ -48,10 +48,11 @@ export const CreateChatModal = ({open, onClose}: CreateChatModalProps) => {
                         users.map((user) => (
                             <li
                                 key={user.user_id}
-                                // onClick={() => {
-                                //     onStartChat(user);
-                                //     onClose();
-                                // }}
+                                onClick={() => {
+                                    setSelectedUser(user);
+                                    setSelectedChat(null);
+                                    onClose();
+                                }}
                                 className="flex items-center p-2 rounded hover:bg-gray-100 cursor-pointer"
                             >
                                 <img

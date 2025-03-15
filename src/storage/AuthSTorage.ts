@@ -33,8 +33,6 @@ export const getUserLoginSession = () => {
         if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
             const teste = JSON.parse(localStorage.getItem(token_user) as string) as userTokenType;
 
-            console.log("TESTE: ", teste.token)
-
             // userSession = jwtDecode(tokens.token);
             // userSession = userSession?.token = tokens.token;
             // userSession = userSession?.refreshToken = tokens.refreshToken;
@@ -45,6 +43,7 @@ export const getUserLoginSession = () => {
                 const decodedToken = jwtDecode(parsedTokens.token) as UserJwtType;
 
                 userSession = {
+                    id: decodedToken.id,
                     firstName: decodedToken.firstName,
                     lastName: decodedToken.lastName,
                     urlImage: decodedToken.urlImage,
@@ -112,38 +111,3 @@ export const logoutUser = () =>{
     }
 }
 
-
-// export const saveUserLoginSession = (user: userTokenType) => {
-//     try {
-//         if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
-//             const decodedToken = jwtDecode(user.token) as UserJwtType;
-//
-//             console.log("DADOS: ", decodedToken)
-//             const firstName = decodedToken.firstName;
-//             const lastName = decodedToken.lastName;
-//             const urlImage = decodedToken.urlImage;
-//             const dropboxImg = decodedToken.dropboxImg;
-//             const roles = decodedToken.roles;
-//
-//             localStorage.setItem(auth_user,JSON.stringify({
-//                 token: user.token,
-//                 refreshToken: user.refreshToken,
-//                 firstName,
-//                 lastName,
-//                 urlImage,
-//                 dropboxImg,
-//                 roles
-//             }))
-//         }
-//     } catch (error) {
-//
-//         showToast({
-//             message: `Ops! Não foi possível salvar a sessão do usuário no sistema, consulte o suporte. Erro: ${error}`,
-//             theme: "dark",
-//             type: "error",
-//             position: ToastPosition.TOP_LEFT,
-//             autoClose: 5000
-//         })
-//
-//     }
-// }

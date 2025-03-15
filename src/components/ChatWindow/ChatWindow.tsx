@@ -23,7 +23,7 @@ export const ChatWindow = () => {
         <section className={`${section_container}`}>
             <ChatHeader user={selectedUser} chat={selectedChat}/>
             <ChatMessages chat={selectedChat} user={selectedUser}/>
-            <ChatInput chat={selectedChat} user={selectedUser}/>
+            <ChatInput chat={selectedChat} userProps={selectedUser}/>
         </section>
     )
 }

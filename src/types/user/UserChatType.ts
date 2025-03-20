@@ -5,3 +5,4 @@ export type UserChatType = {
     "image_uri": string,
     "link_dropbox_image": string
 }
+

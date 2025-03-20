@@ -1,4 +1,6 @@
 import {UserChatType} from "@/types/user/UserChatType";
+import {MessageType} from "@/types/message/MessageType";
+import {ChatUserType} from "@/types/user/ChatUserType";
 
 export type ChatRequestType = {
     chatId: number;
@@ -7,6 +9,7 @@ export type ChatRequestType = {
     description: string;
     createdAt: string;
     createdBy: number;
-    chatUsers: UserChatType[]
+    chatUsers: ChatUserType[];
+    messages: MessageType[]
 
 }

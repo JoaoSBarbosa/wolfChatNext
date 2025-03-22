@@ -1,6 +1,4 @@
----
 
-```markdown
 # 🐺 Wolf Chat UI
 
 ![Next.js](https://img.shields.io/badge/Next.js-14.2.25-blue?logo=next.js)

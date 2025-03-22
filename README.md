@@ -42,6 +42,18 @@ Mais funcionalidades estão a caminho!
 
 ---
 
+## 🚀 Telas do WolfChat 
+
+### Tela de Login
+![Image](https://github.com/user-attachments/assets/10f15be8-0ce0-4328-95d7-65a2c7217c9f)
+
+### Tela de Conversa
+![Image](https://github.com/user-attachments/assets/143220ec-ef88-4af5-85be-ed2ce0ab9f4d)
+
+### Modal de Contatos
+![Image](https://github.com/user-attachments/assets/fa8d3e16-6fc1-4c0c-8596-fd670447de85)
+---
+
 ## 📂 Estrutura de Pastas
 
 ```

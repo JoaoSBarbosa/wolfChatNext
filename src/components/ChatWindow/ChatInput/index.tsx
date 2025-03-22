@@ -17,11 +17,11 @@ export const ChatInput = ({chat, userProps}: IChatInput) => {
     const [showLOading, setShowLoading] = useState(false)
     const {user, setSelectedChat} = useAuth();
     const [message, setMessage] = useState<string>("")
-    const handleSendMessage = () => {
+    const handleSendMessage = async () => {
         if (chat) {
-            // envia a mensagem
+            await sendMessage();
         } else if (userProps) {
-            handleCreationChat().then((data) => {
+            await handleCreationChat().then((data) => {
                 if (data !== undefined) setSelectedChat(data)
             })
         }
@@ -77,11 +77,36 @@ export const ChatInput = ({chat, userProps}: IChatInput) => {
                 type: "error",
                 message: "Erro ao tentar criar o chat [" + err + "]"
             });
-        }
-        finally {
+        } finally {
             setShowLoading(false)
         }
         return returnData;
+    }
+
+    async function sendMessage() {
+
+        try {
+            await ApiConnect(window.location.href).post("/message", {
+                content: message,
+                userId: user?.id,
+                chatId: chat?.chatId
+            }, {
+                headers: {
+                    "Authorization": `Bearer ${user?.token}`,
+                    "Content-Type": "application/json" // garantir isso é opcional
+                }
+            })
+
+            showToast({
+                type: "success",
+                message: "Mensagem enviada com sucesso"
+            })
+        } catch (error) {
+            showToast({
+                type: "error",
+                message: "Erro ao enviar a mensagem: " + error
+            })
+        }
     }
 
     return (

@@ -1,20 +1,19 @@
 "use client"
-import {ChatListItem} from "@/components/ChatList/ChatListItem";
-import {useEffect, useState} from "react";
-import {ApiConnect} from "@/services/ApiConnection";
-import {showToast} from "@/components/ToastMensage/ToastMessage";
-import {UserChatType} from "@/types/user/UserChatType";
-import {AxiosResponse} from "axios";
-import {getTokenSession} from "@/storage/AuthSTorage";
-import {useAuth} from "@/hooks/useAuth";
-import {UserJwtType} from "@/types/auth/UserJwtType";
-import {ChatRequestType} from "@/types/chat/ChatRequestType";
-import {AxiosType} from "@/types/axios/AxiosType";
+import { ChatListItem } from "@/components/ChatList/ChatListItem";
+import { showToast } from "@/components/ToastMensage/ToastMessage";
+import { useAuth } from "@/hooks/useAuth";
+import { ApiConnect } from "@/services/ApiConnection";
+import { AxiosType } from "@/types/axios/AxiosType";
+import { ChatRequestType } from "@/types/chat/ChatRequestType";
+import { UserChatType } from "@/types/user/UserChatType";
+import { AxiosResponse } from "axios";
+import { log } from "console";
+import { useEffect, useState } from "react";
 
 export const ChatList = () => {
 
-    const { user } = useAuth();
-    const [ selectedChat, setSelectedChat ] = useState<UserChatType | null>(null)
+    const { user, setSelectedChat } = useAuth();
+//     const [ selectedChat, setSelectedChat ] = useState<UserChatType | null>(null)
     const [ users, setUsers ] = useState<UserChatType[]>([]);
     const [ chatList, setChatList ]= useState<ChatRequestType[]>([]);
     useEffect(() => {
@@ -87,26 +86,11 @@ export const ChatList = () => {
             return [];
         }
     }
-    // const chatList = [
-    //     {
-    //         id: 1,
-    //         photo: "/img/user.jpg",
-    //         alt: "imagem do lucas",
-    //         title: "Lucas",
-    //         lastMessage: "E ai mano, beleza ?",
-    //         quantityMessage: 5,
-    //
-    //     },
-    //     {
-    //         id: 2,
-    //         photo: "/img/user.jpg",
-    //         title: "Marcos",
-    //         alt: "imagem do marcos",
-    //         quantityMessage: 3,
-    //         lastMessage: "Não pude comparecer",
-    //
-    //     }
-    // ]
+
+    const handleSelected = (row: ChatRequestType) =>{
+        console.log("Teste: ", row);
+        
+    }
     return (
         <div className={"h-full flex flex-col gap-4 bg-gray-800 text-white p-1 w-[500px]"}>
             {
@@ -123,7 +107,9 @@ export const ChatList = () => {
 
                     return(
                         <ChatListItem
-                            onSelected={(data) => setSelectedChat(data)}
+                            onSelectedChat={()=>setSelectedChat(chat)}
+                            // onSelected={(data) => setSelectedChat(data)}
+
                             key={chat?.chatId}
                             alt={`Foto de ${chatTitle}`}
                             src={chatImage}

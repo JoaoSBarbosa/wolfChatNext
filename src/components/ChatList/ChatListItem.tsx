@@ -1,4 +1,4 @@
-import {UserChatType} from "@/types/user/UserChatType";
+import { UserChatType } from "@/types/user/UserChatType";
 
 interface IChatListItem {
     src: string,
@@ -6,12 +6,18 @@ interface IChatListItem {
     title: string
     lastMessage: string;
     countMessage: number;
-    onSelected: (row: UserChatType)=> void
+    onSelectedChat: ()=> void;
+    onSelected?: (row: UserChatType)=> void
 }
 
-export const ChatListItem = ({alt, src, lastMessage, countMessage = 10, title, onSelected}: IChatListItem) => {
+export const ChatListItem = ({alt, src, lastMessage, countMessage = 10, title, onSelected, onSelectedChat}: IChatListItem) => {
+
+    const teste = () =>{
+        console.log("Clicou");
+    }
+    
     return (
-        <div className={"flex items-center gap-2 rounded-md  p-2 cursor-pointer shadow-2xl hover:bg-gray-700"}>
+        <div className={"flex items-center gap-2 rounded-md  p-2 cursor-pointer shadow-2xl hover:bg-gray-700"} onClick={onSelectedChat}>
             <div>
                 <img src={src} alt={alt} className={"h-10 w-10 rounded-full"}/>
             </div>

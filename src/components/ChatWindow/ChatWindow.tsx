@@ -11,7 +11,7 @@ export const ChatWindow = () => {
     const {selectedChat, selectedUser} = useAuth();
     const [user, setUsers] = useState<UserChatType | null>(null)
 
-    const section_container = "flex flex-col h-full max-h-full bg-gray-500 text-white w-full border border-red-500 "
+    const section_container = "flex flex-col h-full max-h-full bg-gray-500 text-white w-full "
     if (!selectedUser && !selectedChat) {
         return (
             <section className={`${section_container} flex items-center justify-center`}>
@@ -21,8 +21,8 @@ export const ChatWindow = () => {
     }
     return (
         <section className={`${section_container}`}>
-            <ChatHeader user={selectedUser} chat={selectedChat}/>
-            <ChatMessages chat={selectedChat} user={selectedUser}/>
+            <ChatHeader userProps={selectedUser} chat={selectedChat}/>
+            <ChatMessages chat={selectedChat} chatUser={selectedUser}/>
             <ChatInput chat={selectedChat} userProps={selectedUser}/>
         </section>
     )

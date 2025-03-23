@@ -15,7 +15,7 @@ interface IChatInput {
 export const ChatInput = ({chat, userProps}: IChatInput) => {
 
     const [showLOading, setShowLoading] = useState(false)
-    const {user, setSelectedChat} = useAuth();
+    const {user, setSelectedChat, getChatById } = useAuth();
     const [message, setMessage] = useState<string>("")
     const handleSendMessage = async () => {
         if (chat) {
@@ -101,6 +101,11 @@ export const ChatInput = ({chat, userProps}: IChatInput) => {
                 type: "success",
                 message: "Mensagem enviada com sucesso"
             })
+
+            if(chat && chat.chatId){
+                getChatById(chat.chatId);
+            }
+
         } catch (error) {
             showToast({
                 type: "error",

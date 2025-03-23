@@ -14,8 +14,6 @@ export const GetUsers = async (token: string) => {
             });
             return responseData;
         }
-        console.log("Token enviado:", token);
-
         let responseAxios: AxiosResponse<UserChatType[]> = await ApiConnect(window.location.href).get("/users/chat/init", {
             headers: {
                 "Authorization": `Bearer ${token}`,

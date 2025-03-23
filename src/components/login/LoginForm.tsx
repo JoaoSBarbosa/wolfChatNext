@@ -35,15 +35,11 @@ export default function LoginForm() {
             });
             return;
         }
-
         // Dados do formulário
         const formData = {
             username: userName,
             password,
         };
-
-        console.log("DADOS QUE VIERAM: ", formData);
-
         // Chamada à API (exemplo)
         handleLogin(formData);
     };
@@ -59,21 +55,10 @@ export default function LoginForm() {
                     password: formData.password,
                 }
             );
-            console.log("Resposta da API: ", loginResponse.data);
-
-
             login({
                 token: loginResponse?.data?.token,
                 refreshToken: loginResponse?.data?.refreshToken
             })
-            // saveUserLoginSession({token: loginResponse?.data?.token, refreshToken: loginResponse?.data?.refreshToken})
-            // showToast({
-            //     type: "success",
-            //     message: "Login realizado com sucesso",
-            // });
-            // router.push("/chat");
-
-
         } catch (error) {
             showToast({
                 type: "error",

@@ -7,13 +7,11 @@ import { AxiosType } from "@/types/axios/AxiosType";
 import { ChatRequestType } from "@/types/chat/ChatRequestType";
 import { UserChatType } from "@/types/user/UserChatType";
 import { AxiosResponse } from "axios";
-import { log } from "console";
 import { useEffect, useState } from "react";
 
 export const ChatList = () => {
 
     const { user, setSelectedChat } = useAuth();
-//     const [ selectedChat, setSelectedChat ] = useState<UserChatType | null>(null)
     const [ users, setUsers ] = useState<UserChatType[]>([]);
     const [ chatList, setChatList ]= useState<ChatRequestType[]>([]);
     useEffect(() => {
@@ -47,7 +45,6 @@ export const ChatList = () => {
         return responseData;
     }
     async function getAllUser(token: string) {
-        console.log("Token enviado para API:", token);
 
         let responseData = [] as UserChatType[];
         try {
@@ -58,15 +55,12 @@ export const ChatList = () => {
                 });
                 return responseData;
             }
-            console.log("Token enviado:", token);
-
             let responseAxios:AxiosResponse<UserChatType[]> = await ApiConnect(window.location.href).get("/users/chat/init",{
                 headers: {
                     "Authorization": `Bearer ${token}`,
                     "Content-Type": "application/json" // garantir isso é opcional
                 }
             });
-            console.log("DADOS: ", responseAxios.data)
             responseData = responseAxios.data;
         } catch (error) {
             showToast({
@@ -87,10 +81,6 @@ export const ChatList = () => {
         }
     }
 
-    const handleSelected = (row: ChatRequestType) =>{
-        console.log("Teste: ", row);
-        
-    }
     return (
         <div className={"h-full flex flex-col gap-4 bg-gray-800 text-white p-1 w-[500px]"}>
             {
